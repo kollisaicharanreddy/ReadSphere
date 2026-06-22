@@ -5,6 +5,7 @@ import com.assignment1.LibraryInfoDisplay.model.Book;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -17,14 +18,19 @@ import java.io.PrintWriter;
 @Slf4j
 @Service
 public class CsvReaderService {
-    private static final String CSV_PATH = "data/books_catalog.csv";
+   @Value("${library.csv.path}")
+    private String csvFilePath;
+
+    @Value("${library.csv.header}")
+    private String csvHeader;
+
     public List<Book> readBooks() {
         log.info("Reading books from CSV file");
         List<Book> books = new ArrayList<>();
 
         try {
 
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(CSV_PATH));
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(csvFilePath));
 
             String line;
             reader.readLine();
@@ -33,18 +39,18 @@ public class CsvReaderService {
 
                 String[] data = line.split(",");
 
-                Book book = new Book();
-
-                book.setId(Integer.parseInt(data[0]));
-                book.setBookName(data[1]);
-                book.setAuthorName(data[2]);
-                book.setCategory(data[3]);
-                book.setPublisher(data[4]);
-                book.setPrice(Double.parseDouble(data[5]));
-                book.setQuantity(Integer.parseInt(data[6]));
-                book.setPublishedYear(Integer.parseInt(data[7]));
-                book.setIsbn((long) Double.parseDouble(data[8]));
-                book.setLanguage(data[9]);
+                Book book = Book.builder()
+                        .id(Integer.parseInt(data[0]))
+                        .bookName(data[1])
+                        .authorName(data[2])
+                        .category(data[3])
+                        .publisher(data[4])
+                        .price(Double.parseDouble(data[5]))
+                        .quantity(Integer.parseInt(data[6]))
+                        .publishedYear(Integer.parseInt(data[7]))
+                        .isbn((long) Double.parseDouble(data[8]))
+                        .language(data[9])
+                        .build();
 
                 books.add(book);
             }
@@ -118,9 +124,9 @@ public class CsvReaderService {
         log.info("Saving books to CSV file");
     try {
 
-        PrintWriter writer =new PrintWriter(new FileWriter(CSV_PATH));
+        PrintWriter writer =new PrintWriter(new FileWriter(csvFilePath));
 
-        writer.println("id,bookName,authorName,category,publisher,price,quantity,publishedYear,isbn,language");
+        writer.println(csvHeader);
 
         for(Book book : books) {
 
