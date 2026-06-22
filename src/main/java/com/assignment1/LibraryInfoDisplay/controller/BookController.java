@@ -26,37 +26,39 @@ public class BookController {
     }
     @GetMapping
     public List<Book> getAllBooksInfo(){
-        log.info("GET /api/books called");
+        log.info("Fetching all books");
         return bookService.getAllBooks();
     }
     @GetMapping("/{id}")
     public Book getBookInfoById(@PathVariable int id){
-        log.info("GET /api/books/{} called", id);
+        log.info("Fetching book with id {}", id);
         return bookService.getBookById(id);
     }
     @GetMapping("/author/{authorName}")
     public List<Book> getBookInfoByAuthor(@PathVariable String authorName){
+        log.info("Fetching books written by {}", authorName);
         return bookService.getBooksByAuthor(authorName);
     }
     @GetMapping("/category/{category}")
     public List<Book> getBookInfoByCategory(@PathVariable String category){
+        log.info("Fetching books from category {}", category);
         return bookService.getBooksByCategory(category);
     }
     @PostMapping
     public Book addBook(@RequestBody Book book){
-        log.info("POST /api/books called");
+        log.info("Adding new book: {}", book.getBookName());
         return bookService.addBook(book);
     }
 
     @PutMapping("/{id}")
     public Book updateBook(@PathVariable int id, @RequestBody Book book){
-        log.info("PUT /api/books/{} called", id);
+        log.info("Updating book with id {}", id);
         return bookService.updateBook(id, book);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteBook(@PathVariable int id){
-        log.info("DELETE /api/books/{} called", id);
+        log.info("Deleting book with id {}", id);
         return bookService.deleteBook(id);
     }
 }

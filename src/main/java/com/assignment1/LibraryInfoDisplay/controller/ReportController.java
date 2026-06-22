@@ -26,24 +26,24 @@ public class ReportController {
 
     @GetMapping
     public LibraryReportDTO getReport() {
-        log.info("GET /api/books/report called");
+        log.info("Generating library report");
         return reportService.generateReport();
     }
     @GetMapping("/group/category")
     public Map<String, List<Book>> groupByCategory(){
-        log.info("GET /api/books/report/group/category called");
+        log.info("Generating category-wise grouping report");        
         return reportService.groupByCategory();
     }
 
     @GetMapping("/group/publisher")
     public Map<String, List<Book>> groupByPublisher(){
-        log.info("GET /api/books/report/group/publisher called");
+        log.info("Generating publisher-wise grouping report");
         return reportService.groupByPublisher();
     }
 
     @GetMapping("/group/language")
     public Map<String, List<Book>> groupByLanguage(){
-        log.info("GET /api/books/report/group/language called");
+        log.info("Generating language-wise grouping report");
         return reportService.groupByLanguage();
     }
 }
