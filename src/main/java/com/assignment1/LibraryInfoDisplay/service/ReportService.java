@@ -4,7 +4,6 @@ package com.assignment1.LibraryInfoDisplay.service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,17 @@ import com.assignment1.LibraryInfoDisplay.model.Book;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.assignment1.LibraryInfoDisplay.service.factory.GroupingStrategyFactory;
+
 @Slf4j
 @Service
 public class ReportService {
-
+    private final GroupingStrategyFactory groupingStrategyFactory;
     private final CsvReaderService csvReaderService;
 
-    public ReportService(CsvReaderService csvReaderService) {
+    public ReportService(CsvReaderService csvReaderService, GroupingStrategyFactory groupingStrategyFactory) {
         this.csvReaderService = csvReaderService;
+        this.groupingStrategyFactory = groupingStrategyFactory;
     }
 
     public LibraryReportDTO generateReport() {
@@ -60,13 +62,9 @@ public class ReportService {
         log.info("Library report generated successfully");
     return report;
     }
-    public Map<String, List<Book>> groupByCategory(){
-        return csvReaderService.getAllBooks().stream().collect(Collectors.groupingBy(Book::getCategory));
-    }
-    public Map<String, List<Book>> groupByPublisher(){
-        return csvReaderService.getAllBooks().stream().collect(Collectors.groupingBy(Book::getPublisher));
-    }
-    public Map<String, List<Book>> groupByLanguage(){
-        return csvReaderService.getAllBooks().stream().collect(Collectors.groupingBy(Book::getLanguage));
+    public Map<String, List<Book>> groupBooks(String type) {
+        return groupingStrategyFactory
+            .getStrategy(type)
+            .group(csvReaderService.getAllBooks());
     }
 }
