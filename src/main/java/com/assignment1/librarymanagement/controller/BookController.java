@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.controller;
+package com.assignment1.librarymanagement.controller;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assignment1.LibraryInfoDisplay.model.Book;
-import com.assignment1.LibraryInfoDisplay.service.BookService;
+import com.assignment1.librarymanagement.model.Book;
+import com.assignment1.librarymanagement.service.BookService;
 
 import lombok.extern.slf4j.Slf4j;
 

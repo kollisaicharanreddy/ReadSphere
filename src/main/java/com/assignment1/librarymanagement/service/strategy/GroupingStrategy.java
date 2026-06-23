@@ -1,9 +1,9 @@
-package com.assignment1.LibraryInfoDisplay.service.strategy;
+package com.assignment1.librarymanagement.service.strategy;
 
 import java.util.List;
 import java.util.Map;
 
-import com.assignment1.LibraryInfoDisplay.model.Book;
+import com.assignment1.librarymanagement.model.Book;
 
 public interface GroupingStrategy {
 

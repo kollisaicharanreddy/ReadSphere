@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.model;
+package com.assignment1.librarymanagement.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

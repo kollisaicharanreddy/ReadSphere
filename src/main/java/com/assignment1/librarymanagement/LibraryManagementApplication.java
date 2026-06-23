@@ -1,13 +1,13 @@
-package com.assignment1.LibraryInfoDisplay;
+package com.assignment1.librarymanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LibraryInfoDisplayApplication {
+public class LibraryManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibraryInfoDisplayApplication.class, args);
+		SpringApplication.run(LibraryManagementApplication.class, args);
 	}
 
 }

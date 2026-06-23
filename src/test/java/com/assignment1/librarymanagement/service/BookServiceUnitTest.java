@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.service;
+package com.assignment1.librarymanagement.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.assignment1.LibraryInfoDisplay.model.Book;
+import com.assignment1.librarymanagement.model.Book;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceUnitTest {

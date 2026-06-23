@@ -1,5 +1,5 @@
-package com.assignment1.LibraryInfoDisplay.dto;
-import com.assignment1.LibraryInfoDisplay.model.Book;
+package com.assignment1.librarymanagement.dto;
+import com.assignment1.librarymanagement.model.Book;
 
 import lombok.Data;
 

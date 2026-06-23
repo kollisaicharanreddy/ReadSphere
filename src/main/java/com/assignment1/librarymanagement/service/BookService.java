@@ -1,10 +1,10 @@
-package com.assignment1.LibraryInfoDisplay.service;
+package com.assignment1.librarymanagement.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.assignment1.LibraryInfoDisplay.model.Book;
+import com.assignment1.librarymanagement.model.Book;
 
 import lombok.extern.slf4j.Slf4j;
 

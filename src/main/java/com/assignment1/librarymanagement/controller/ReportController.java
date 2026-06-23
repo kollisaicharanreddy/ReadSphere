@@ -1,13 +1,13 @@
-package com.assignment1.LibraryInfoDisplay.controller;
+package com.assignment1.librarymanagement.controller;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.assignment1.LibraryInfoDisplay.dto.LibraryReportDTO;
-import com.assignment1.LibraryInfoDisplay.model.Book;
-import com.assignment1.LibraryInfoDisplay.service.ReportService;
+import com.assignment1.librarymanagement.dto.LibraryReportDTO;
+import com.assignment1.librarymanagement.model.Book;
+import com.assignment1.librarymanagement.service.ReportService;
 
 import lombok.extern.slf4j.Slf4j;
 

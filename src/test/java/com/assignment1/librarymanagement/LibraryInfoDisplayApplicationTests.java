@@ -1,10 +1,10 @@
-package com.assignment1.LibraryInfoDisplay;
+package com.assignment1.librarymanagement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LibraryInfoDisplayApplicationTests {
+class LibraryManagementApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,11 +1,11 @@
-package com.assignment1.LibraryInfoDisplay.service.factory;
+package com.assignment1.librarymanagement.service.factory;
 
 import org.springframework.stereotype.Component;
 
-import com.assignment1.LibraryInfoDisplay.service.strategy.CategoryGroupingStrategy;
-import com.assignment1.LibraryInfoDisplay.service.strategy.GroupingStrategy;
-import com.assignment1.LibraryInfoDisplay.service.strategy.LanguageGroupingStrategy;
-import com.assignment1.LibraryInfoDisplay.service.strategy.PublisherGroupingStrategy;
+import com.assignment1.librarymanagement.service.strategy.CategoryGroupingStrategy;
+import com.assignment1.librarymanagement.service.strategy.GroupingStrategy;
+import com.assignment1.librarymanagement.service.strategy.LanguageGroupingStrategy;
+import com.assignment1.librarymanagement.service.strategy.PublisherGroupingStrategy;
 
 @Component
 public class GroupingStrategyFactory {

@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.controller;
+package com.assignment1.librarymanagement.controller;
 
 import java.time.LocalDateTime;
 import java.util.Map;

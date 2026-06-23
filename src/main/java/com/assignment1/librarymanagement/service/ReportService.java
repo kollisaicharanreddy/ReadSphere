@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.service;
+package com.assignment1.librarymanagement.service;
 
 
 import java.util.Comparator;
@@ -7,12 +7,11 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.assignment1.LibraryInfoDisplay.dto.LibraryReportDTO;
-import com.assignment1.LibraryInfoDisplay.model.Book;
+import com.assignment1.librarymanagement.dto.LibraryReportDTO;
+import com.assignment1.librarymanagement.model.Book;
+import com.assignment1.librarymanagement.service.factory.GroupingStrategyFactory;
 
 import lombok.extern.slf4j.Slf4j;
-
-import com.assignment1.LibraryInfoDisplay.service.factory.GroupingStrategyFactory;
 
 @Slf4j
 @Service

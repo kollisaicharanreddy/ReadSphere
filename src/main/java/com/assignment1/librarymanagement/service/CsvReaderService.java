@@ -1,12 +1,12 @@
-package com.assignment1.LibraryInfoDisplay.service;
-
-import com.assignment1.LibraryInfoDisplay.model.Book;
+package com.assignment1.librarymanagement.service;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.assignment1.librarymanagement.model.Book;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;

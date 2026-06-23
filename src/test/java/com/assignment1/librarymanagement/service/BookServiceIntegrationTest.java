@@ -1,4 +1,4 @@
-package com.assignment1.LibraryInfoDisplay.service;
+package com.assignment1.librarymanagement.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.assignment1.LibraryInfoDisplay.model.Book;
+import com.assignment1.librarymanagement.model.Book;
 
 @SpringBootTest
 class BookServiceIntegrationTest {
