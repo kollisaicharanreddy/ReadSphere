@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import jakarta.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/books")
@@ -61,14 +63,14 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
     @PostMapping
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
+    public ResponseEntity<Book> addBook(@Valid @RequestBody Book book){
         log.info("Adding new book: {}", book.getBookName());
         Book savedBook = bookService.addBook(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book){
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @Valid @RequestBody Book book){
         log.info("Updating book with id {}", id);
         Book updatedBook = bookService.updateBook(id, book);
         if(updatedBook == null){
