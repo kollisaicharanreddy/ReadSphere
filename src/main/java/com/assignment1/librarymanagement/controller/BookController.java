@@ -16,6 +16,9 @@ import com.assignment1.librarymanagement.service.BookService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/books")
@@ -25,40 +28,62 @@ public class BookController {
         this.bookService = bookService;
     }
     @GetMapping
-    public List<Book> getAllBooksInfo(){
+    public ResponseEntity<List<Book>> getAllBooksInfo(){
         log.info("Fetching all books");
-        return bookService.getAllBooks();
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
     @GetMapping("/{id}")
-    public Book getBookInfoById(@PathVariable int id){
+    public ResponseEntity<Book> getBookInfoById(@PathVariable int id){
         log.info("Fetching book with id {}", id);
-        return bookService.getBookById(id);
+        Book book = bookService.getBookById(id);
+        if(book==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(book);
     }
     @GetMapping("/author/{authorName}")
-    public List<Book> getBookInfoByAuthor(@PathVariable String authorName){
+    public ResponseEntity<List<Book>> getBookInfoByAuthor(@PathVariable String authorName){
         log.info("Fetching books written by {}", authorName);
-        return bookService.getBooksByAuthor(authorName);
+        List<Book> books = bookService.getBooksByAuthor(authorName);
+        if(books.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(books);
     }
     @GetMapping("/category/{category}")
-    public List<Book> getBookInfoByCategory(@PathVariable String category){
+    public ResponseEntity<List<Book>> getBookInfoByCategory(@PathVariable String category){
         log.info("Fetching books from category {}", category);
-        return bookService.getBooksByCategory(category);
+        List<Book> books = bookService.getBooksByCategory(category);
+
+        if(books.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(books);
     }
     @PostMapping
-    public Book addBook(@RequestBody Book book){
+    public ResponseEntity<Book> addBook(@RequestBody Book book){
         log.info("Adding new book: {}", book.getBookName());
-        return bookService.addBook(book);
+        Book savedBook = bookService.addBook(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable int id, @RequestBody Book book){
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book){
         log.info("Updating book with id {}", id);
-        return bookService.updateBook(id, book);
+        Book updatedBook = bookService.updateBook(id, book);
+        if(updatedBook == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedBook);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteBook(@PathVariable int id){
+    public ResponseEntity<Void> deleteBook(@PathVariable int id){
         log.info("Deleting book with id {}", id);
-        return bookService.deleteBook(id);
+        boolean deleted = bookService.deleteBook(id);
+        if(!deleted){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }

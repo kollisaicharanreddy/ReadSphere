@@ -11,6 +11,8 @@ import com.assignment1.librarymanagement.service.ReportService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.ResponseEntity;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/books/report")
@@ -23,13 +25,17 @@ public class ReportController {
     }
 
     @GetMapping
-    public LibraryReportDTO getReport() {
+    public ResponseEntity<LibraryReportDTO> getReport() {
         log.info("Generating library report");
-        return reportService.generateReport();
+        return ResponseEntity.ok(reportService.generateReport());
     }
     @GetMapping("/group/{type}")
-    public Map<String, List<Book>> groupBooks(@PathVariable String type){
+    public ResponseEntity<Map<String, List<Book>>> groupBooks(@PathVariable String type){
         log.info("Generating {} grouping report", type);
-        return reportService.groupBooks(type);
+        try{
+            return ResponseEntity.ok(reportService.groupBooks(type));
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

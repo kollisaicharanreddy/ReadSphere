@@ -8,20 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.ResponseEntity;
+
 @Slf4j
 @RestController
 public class HealthController {
 
     @GetMapping("/health")
-    public Map<String, Object> healthCheck() {
+    public ResponseEntity<Map<String, Object>> healthCheck() {
 
         log.info("Health check requested");
 
-        return Map.of(
+        return ResponseEntity.ok(Map.of(
                 "status", "UP",
                 "application", "LibraryInfoDisplay",
                 "timestamp", LocalDateTime.now(),
                 "message", "Application is running successfully"
-        );
+        ));
     }
 }
