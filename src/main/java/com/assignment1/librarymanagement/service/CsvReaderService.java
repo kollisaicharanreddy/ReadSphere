@@ -83,6 +83,12 @@ public class CsvReaderService {
         return books;
     }
     public Book addBook(Book book){
+        boolean isbnExists = books.stream()
+            .anyMatch(existingBook -> existingBook.getIsbn().equals(book.getIsbn()));
+
+        if (isbnExists) {
+            throw new IllegalArgumentException("A book with ISBN " + book.getIsbn() + " already exists.");
+        }
         int nextId = books.stream().mapToInt(Book::getId).max().orElse(0) + 1;
         book.setId(nextId);
         books.add(book);
@@ -97,6 +103,15 @@ public class CsvReaderService {
             log.warn("Book with id {} not found", id);
             return null;
         }
+        boolean isbnExists = books.stream()
+            .anyMatch(book ->
+                    book.getId() != id &&
+                    book.getIsbn().equals(updatedBook.getIsbn()));
+
+            if(isbnExists){
+                throw new IllegalArgumentException(
+                        "Book with ISBN " + updatedBook.getIsbn() + " already exists.");
+            }
         existingBook.setBookName(updatedBook.getBookName());
         existingBook.setAuthorName(updatedBook.getAuthorName());
         existingBook.setCategory(updatedBook.getCategory());
