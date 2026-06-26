@@ -82,6 +82,48 @@ public class CsvReaderService {
     public List<Book> getAllBooks(){
         return books;
     }
+    public List<Book> getAllBooks(int page, int size, String sortBy, String direction) {
+        List<Book> sortedBooks = new ArrayList<>(books);
+
+        switch (sortBy.toLowerCase()) {
+
+            case "bookname" ->
+                sortedBooks.sort(java.util.Comparator.comparing(Book::getBookName));
+
+            case "authorname" ->
+                sortedBooks.sort(java.util.Comparator.comparing(Book::getAuthorName));
+
+            case "category" ->
+                sortedBooks.sort(java.util.Comparator.comparing(Book::getCategory));
+
+            case "publisher" ->
+                sortedBooks.sort(java.util.Comparator.comparing(Book::getPublisher));
+
+            case "price" ->
+                sortedBooks.sort(java.util.Comparator.comparingDouble(Book::getPrice));
+
+            case "quantity" ->
+                sortedBooks.sort(java.util.Comparator.comparingInt(Book::getQuantity));
+
+            case "publishedyear" ->
+                sortedBooks.sort(java.util.Comparator.comparingInt(Book::getPublishedYear));
+
+            case "language" ->
+                sortedBooks.sort(java.util.Comparator.comparing(Book::getLanguage));
+
+            default ->
+                sortedBooks.sort(java.util.Comparator.comparingInt(Book::getId));
+        }
+
+        if (direction.equalsIgnoreCase("desc")) {
+            java.util.Collections.reverse(sortedBooks);
+        }
+
+        return sortedBooks.stream()
+                .skip((long) page * size)
+                .limit(size)
+                .toList();
+    }
     public Book addBook(Book book){
         boolean isbnExists = books.stream()
             .anyMatch(existingBook -> existingBook.getIsbn().equals(book.getIsbn()));

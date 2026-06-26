@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignment1.librarymanagement.model.Book;
@@ -30,9 +31,21 @@ public class BookController {
         this.bookService = bookService;
     }
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooksInfo(){
-        log.info("Fetching all books");
-        return ResponseEntity.ok(bookService.getAllBooks());
+    public ResponseEntity<List<Book>> getAllBooksInfo(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+
+        log.info("Fetching books with pagination and sorting");
+
+        List<Book> books = bookService.getAllBooks(page, size, sortBy, direction);
+
+        if (books.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(books);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookInfoById(@PathVariable int id){

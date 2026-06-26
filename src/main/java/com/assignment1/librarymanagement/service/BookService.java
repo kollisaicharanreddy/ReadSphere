@@ -15,8 +15,9 @@ public class BookService {
     BookService(CsvReaderService csvReaderService){
         this.csvReaderService = csvReaderService;
     }
-    public List<Book> getAllBooks(){
-        return csvReaderService.readBooks();
+    public List<Book> getAllBooks(int page, int size, String sortBy, String direction){
+        log.info("Fetching books with pagination and sorting");
+        return csvReaderService.getAllBooks(page, size, sortBy, direction);
     }
     public Book getBookById(int id){
         log.info("Fetching book with id {}", id);
