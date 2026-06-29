@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import com.assignment1.librarymanagement.service.BookService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -27,9 +29,17 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
-    BookController(BookService bookService){
+    public BookController(BookService bookService){
         this.bookService = bookService;
     }
+
+    @Value("${library.admin.role}")
+    private String adminRole;
+
+    private boolean isAdmin(String role){
+        return role != null && role.equalsIgnoreCase(adminRole);
+    }
+
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooksInfo(
             @RequestParam(defaultValue = "0") int page,
@@ -76,14 +86,21 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
     @PostMapping
-    public ResponseEntity<Book> addBook(@Valid @RequestBody Book book){
+    public ResponseEntity<Book> addBook(@RequestHeader(value = "Role", required = false) String role, @Valid @RequestBody Book book){
+        
+        if(!isAdmin(role)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         log.info("Adding new book: {}", book.getBookName());
         Book savedBook = bookService.addBook(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable int id, @Valid @RequestBody Book book){
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestHeader(value="Role", required = false) String role, @Valid @RequestBody Book book){
+        if(!isAdmin(role)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         log.info("Updating book with id {}", id);
         Book updatedBook = bookService.updateBook(id, book);
         if(updatedBook == null){
@@ -93,7 +110,10 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable int id){
+    public ResponseEntity<Void> deleteBook(@PathVariable int id, @RequestHeader(value = "Role", required = false) String role){
+        if(!isAdmin(role)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         log.info("Deleting book with id {}", id);
         boolean deleted = bookService.deleteBook(id);
         if(!deleted){

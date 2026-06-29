@@ -20,3 +20,4 @@ id,bookName,authorName,category,publisher,price,quantity,publishedYear,isbn,lang
 19,Docker Deep Dive,Nigel Poulton,DevOps,Independently Published,800.0,14,2023,9781520000000,English
 20,The Phoenix Project,Gene Kim,DevOps,IT Revolution,750.0,19,2018,9781940000000,English
 21,Hands-On Machine Learning,Aurelien Geron,Artificial Intelligence,O'Reilly,950.5,20,2022,9781098125974,English
+22,Hands-On Machine Learning,Aurelien Geron,Artificial Intelligence,O'Reilly,950.5,20,2022,9781100000900,English

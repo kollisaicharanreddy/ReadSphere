@@ -82,9 +82,10 @@ public class CsvReaderService {
     public List<Book> getAllBooks(){
         return books;
     }
+    
     public List<Book> getAllBooks(int page, int size, String sortBy, String direction) {
         List<Book> sortedBooks = new ArrayList<>(books);
-
+        log.info("Reading books from memory and applying pagination");
         switch (sortBy.toLowerCase()) {
 
             case "bookname" ->
